@@ -18,6 +18,6 @@ public class ListaCircular extends ListaEnlazada {
     }
 
     public void recorrerEnlace() {
-        // Implementar la lógica de recorrido de la lista circular
+        
     }
 }
