@@ -1,8 +1,7 @@
-public class ListaEnlazada {
-    protected nodo cabeza;
-    public String dato;
+public abstract class ListaEnlazada {
+    protected Nodo cabeza;
 
-    public int identificarCuantoNodo() {
-        return 0;
-    }
+    public abstract int identificarCuantoNodo();
+
+    // Otros métodos comunes a todas las listas enlazadas
 }
