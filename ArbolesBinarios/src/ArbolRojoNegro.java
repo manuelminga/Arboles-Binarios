@@ -1,89 +1,115 @@
 public class ArbolRojoNegro extends Arbol {
-    private void balanceoNodo() {
-    }
+    private static final boolean ROJO = true;
+    private static final boolean NEGRO = false;
 
-    protected void rotacionDerecha() {
-    }
+    private static class NodoRojoNegro extends Nodo {
+        boolean color;
+        NodoRojoNegro izquierda;
+        NodoRojoNegro derecha;
 
-    protected void rotacionIzquierda() {
-    }
-
-    protected void colorNodo() {
-    }
-
-    protected int altura;
-
-    public void balancearArbol() {
-    }
-
-    public void medirNodo() {
+        NodoRojoNegro(int dato) {
+            super(dato);
+            this.color = ROJO;
+        }
     }
 
     @Override
     public void recorrerEnOrden() {
-        recorrerEnOrden(this.raiz);
+        recorrerEnOrden((NodoRojoNegro) this.getRaiz());
     }
 
-    private void recorrerEnOrden(Nodo nodo) {
+    private void recorrerEnOrden(NodoRojoNegro nodo) {
         if (nodo != null) {
-            recorrerEnOrden(nodo.getIzquierda());
+            recorrerEnOrden(nodo.izquierda);
             System.out.print(nodo.getDato() + " ");
-            recorrerEnOrden(nodo.getDerecha());
+            recorrerEnOrden(nodo.derecha);
         }
     }
 
     @Override
     public void recorrerPreOrden() {
-        recorrerPreOrden(this.raiz);
+        recorrerPreOrden((NodoRojoNegro) this.getRaiz());
     }
 
-    private void recorrerPreOrden(Nodo nodo) {
+    private void recorrerPreOrden(NodoRojoNegro nodo) {
         if (nodo != null) {
             System.out.print(nodo.getDato() + " ");
-            recorrerPreOrden(nodo.getIzquierda());
-            recorrerPreOrden(nodo.getDerecha());
+            recorrerPreOrden(nodo.izquierda);
+            recorrerPreOrden(nodo.derecha);
         }
     }
 
     @Override
     public void recorrerPostOrden() {
-        recorrerPostOrden(this.raiz);
+        recorrerPostOrden((NodoRojoNegro) this.getRaiz());
     }
 
-    private void recorrerPostOrden(Nodo nodo) {
+    private void recorrerPostOrden(NodoRojoNegro nodo) {
         if (nodo != null) {
-            recorrerPostOrden(nodo.getIzquierda());
-            recorrerPostOrden(nodo.getDerecha());
+            recorrerPostOrden(nodo.izquierda);
+            recorrerPostOrden(nodo.derecha);
             System.out.print(nodo.getDato() + " ");
         }
     }
 
     @Override
     public void agregarNodo(int dato) {
-        Nodo nuevoNodo = new Nodo(dato) {};
-        if (raiz == null) {
-            raiz = nuevoNodo;
-        } else {
-            Nodo actual = raiz;
-            Nodo padre;
-            while (true) {
-                padre = actual;
-                if (dato < actual.getDato()) {
-                    actual = actual.getIzquierda();
-                    if (actual == null) {
-                        padre.setIzquierda(nuevoNodo);
-                        return;
-                    }
-                } else {
-                    actual = actual.getDerecha();
-                    if (actual == null) {
-                        padre.setDerecha(nuevoNodo);
-                        return;
-                    }
-                }
-            }
-        }
-        // Aquí es para llamar a los métodos de balanceo y rotación
-        // balanceoNodo();
+        raiz = agregarNodo((NodoRojoNegro) raiz, dato);
+        ((NodoRojoNegro) raiz).color = NEGRO;
     }
+
+    private NodoRojoNegro agregarNodo(NodoRojoNegro nodo, int dato) {
+        if (nodo == null) {
+            return new NodoRojoNegro(dato);
+        }
+
+        if (dato < nodo.getDato()) {
+            nodo.izquierda = agregarNodo(nodo.izquierda, dato);
+        } else if (dato > nodo.getDato()) {
+            nodo.derecha = agregarNodo(nodo.derecha, dato);
+        } else {
+            return nodo; // Los valores duplicados no están permitidos
+        }
+
+        if (esRojo(nodo.derecha) && !esRojo(nodo.izquierda)) {
+            nodo = rotacionIzquierda(nodo);
+        }
+        if (esRojo(nodo.izquierda) && esRojo(nodo.izquierda.izquierda)) {
+            nodo = rotacionDerecha(nodo);
+        }
+        if (esRojo(nodo.izquierda) && esRojo(nodo.derecha)) {
+            cambiarColor(nodo);
+        }
+
+        return nodo;
+    }
+
+    private NodoRojoNegro rotacionIzquierda(NodoRojoNegro nodo) {
+        NodoRojoNegro x = nodo.derecha;
+        nodo.derecha = x.izquierda;
+        x.izquierda = nodo;
+        x.color = nodo.color;
+        nodo.color = ROJO;
+        return x;
+    }
+
+    private NodoRojoNegro rotacionDerecha(NodoRojoNegro nodo) {
+        NodoRojoNegro x = nodo.izquierda;
+        nodo.izquierda = x.derecha;
+        x.derecha = nodo;
+        x.color = nodo.color;
+        nodo.color = ROJO;
+        return x;
+    }
+
+    private void cambiarColor(NodoRojoNegro nodo) {
+        nodo.color = ROJO;
+        nodo.izquierda.color = NEGRO;
+        nodo.derecha.color = NEGRO;
+    }
+
+    private boolean esRojo(NodoRojoNegro nodo) {
+        return nodo != null && nodo.color == ROJO;
+    }
+
 }
