@@ -18,4 +18,6 @@ public abstract class Arbol {
     public abstract void recorrerPreOrden();
 
     public abstract void recorrerPostOrden();
+
+    public abstract void agregarNodo(int dato);
 }

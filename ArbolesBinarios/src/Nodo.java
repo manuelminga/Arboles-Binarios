@@ -1,25 +1,24 @@
 public abstract class Nodo {
-    public int dato;
-    public Nodo izquierda;
-    public Nodo derecha;
+    protected int dato;
+    protected Nodo izquierda;
+    protected Nodo derecha;
     private Nodo siguiente;
 
     public Nodo(int dato) {
         this.dato = dato;
         this.izquierda = null;
         this.derecha = null;
+        this.siguiente = null;
     }
 
     public int getDato() {
         return dato;
     }
 
-    public boolean esHoja() {
-        // Retorna true si el nodo es una hoja (no tiene hijos)
-        return this.izquierda == null && this.derecha == null;
+    public void setDato(int dato) {
+        this.dato = dato;
     }
 
-    // Getters y Setters para los atributos izquierda y derecha
     public Nodo getIzquierda() {
         return izquierda;
     }
@@ -29,7 +28,7 @@ public abstract class Nodo {
     }
 
     public Nodo getDerecha() {
-        return null;
+        return derecha;
     }
 
     public void setDerecha(Nodo derecha) {
@@ -40,4 +39,11 @@ public abstract class Nodo {
         return siguiente;
     }
 
+    public void setSiguiente(Nodo siguiente) {
+        this.siguiente = siguiente;
+    }
+
+    public boolean esHoja() {
+        return izquierda == null && derecha == null;
+    }
 }

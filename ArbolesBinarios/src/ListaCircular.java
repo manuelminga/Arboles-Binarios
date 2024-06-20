@@ -1,9 +1,4 @@
 public class ListaCircular extends ListaEnlazada {
-    public int conteoEnlaceDerecho;
-    public int conteoEnlaceIzquierdo;
-    public int conteoEnlaceArriba;
-    public int conteoEnlaceAbajo;
-
     @Override
     public int identificarCuantoNodo() {
         int contador = 0;
@@ -18,6 +13,12 @@ public class ListaCircular extends ListaEnlazada {
     }
 
     public void recorrerEnlace() {
-        
+        Nodo actual = cabeza;
+        if (actual != null) {
+            do {
+                System.out.print(actual.getDato() + " ");
+                actual = actual.getSiguiente();
+            } while (actual != cabeza);
+        }
     }
 }

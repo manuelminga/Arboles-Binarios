@@ -4,12 +4,17 @@ public class ListaDoblementeCircular {
 
     public NodoDoble buscarDato(int dato) {
         NodoDoble actual = primerNodo;
-        while (actual != null && actual.getDato() != dato) {
-            actual = actual.getSiguienteNodo();
-            if (actual == primerNodo) {
-                return null; // El dato no está en la lista
+        if (actual == null) return null;
+
+        do {
+            if (actual.getDato() == dato) {
+                return actual;
             }
-        }
-        return actual;
+            actual = actual.getSiguienteNodo();
+        } while (actual != primerNodo);
+
+        return null;
     }
+
+    // Otros métodos para agregar, eliminar, etc.
 }

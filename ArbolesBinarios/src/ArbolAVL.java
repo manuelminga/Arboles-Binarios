@@ -1,30 +1,4 @@
 public class ArbolAVL extends Arbol {
-    protected void rotacionIzquierda() {
-        // Implementación específica
-    }
-
-    protected void rotacionDerecha() {
-        // Implementación específica
-    }
-
-    private void balancearNodos() {
-        // Implementación específica
-    }
-
-    protected int altura;
-
-    public ArbolAVL() {
-        this.setRaiz(null);
-    }
-
-    public int medirAltura() {
-        return altura(this.getRaiz());
-    }
-
-    private int altura(Nodo nodo) {
-        return nodo == null ? -1 : Math.max(altura(nodo.getIzquierda()), altura(nodo.getDerecha())) + 1;
-    }
-
     private static class NodoAVL extends Nodo {
         NodoAVL(int valor) {
             super(valor);
@@ -32,6 +6,10 @@ public class ArbolAVL extends Arbol {
 
         NodoAVL izquierda;
         NodoAVL derecha;
+    }
+
+    public ArbolAVL() {
+        this.setRaiz(null);
     }
 
     @Override
@@ -42,18 +20,65 @@ public class ArbolAVL extends Arbol {
     private void recorrerEnOrden(Nodo nodo) {
         if (nodo != null) {
             recorrerEnOrden(nodo.getIzquierda());
-            System.out.println(nodo.getDato());
+            System.out.print(nodo.getDato() + " ");
             recorrerEnOrden(nodo.getDerecha());
         }
     }
 
     @Override
     public void recorrerPreOrden() {
-        // Implementación específica para ArbolAVL
+        recorrerPreOrden(this.getRaiz());
+    }
+
+    private void recorrerPreOrden(Nodo nodo) {
+        if (nodo != null) {
+            System.out.print(nodo.getDato() + " ");
+            recorrerPreOrden(nodo.getIzquierda());
+            recorrerPreOrden(nodo.getDerecha());
+        }
     }
 
     @Override
     public void recorrerPostOrden() {
-        // Implementación específica para ArbolAVL
+        recorrerPostOrden(this.getRaiz());
     }
+
+    private void recorrerPostOrden(Nodo nodo) {
+        if (nodo != null) {
+            recorrerPostOrden(nodo.getIzquierda());
+            recorrerPostOrden(nodo.getDerecha());
+            System.out.print(nodo.getDato() + " ");
+        }
+    }
+
+    @Override
+    public void agregarNodo(int dato) {
+        Nodo nuevoNodo = new Nodo(dato) {};
+        if (raiz == null) {
+            raiz = nuevoNodo;
+        } else {
+            Nodo actual = raiz;
+            Nodo padre;
+            while (true) {
+                padre = actual;
+                if (dato < actual.getDato()) {
+                    actual = actual.getIzquierda();
+                    if (actual == null) {
+                        padre.setIzquierda(nuevoNodo);
+                        return;
+                    }
+                } else {
+                    actual = actual.getDerecha();
+                    if (actual == null) {
+                        padre.setDerecha(nuevoNodo);
+                        return;
+                    }
+                }
+            }
+        }
+        // Aquí es para llamar a los métodos de balanceo y rotación
+        // balanceoNodo();
+    }
+
+    // Métodos de balanceo, rotación, etc. se implementarán aquí
 }

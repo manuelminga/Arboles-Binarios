@@ -1,19 +1,26 @@
 public class Main {
     public static void main(String[] args) {
         ArbolSimple arbolSimple = new ArbolSimple();
-        // Agregar nodos al árbol simple
-        // arbolSimple.agregarNodo(...);
+        arbolSimple.agregarNodo(5);
+        arbolSimple.agregarNodo(3);
+        arbolSimple.agregarNodo(7);
+        arbolSimple.agregarNodo(2);
+        arbolSimple.agregarNodo(4);
 
         ArbolRojoNegro arbolRojoNegro = new ArbolRojoNegro();
-        // Agregar nodos al árbol rojo-negro
-        // arbolRojoNegro.agregarNodo(...);
+        arbolRojoNegro.agregarNodo(10);
+        arbolRojoNegro.agregarNodo(20);
+        arbolRojoNegro.agregarNodo(5);
+        arbolRojoNegro.agregarNodo(6);
+        arbolRojoNegro.agregarNodo(15);
 
         ArbolAVL arbolAVL = new ArbolAVL();
-        // Agregar nodos al árbol AVL
-        // arbolAVL.agregar
-        // arbolAVL.agregarNodo(...);
+        arbolAVL.agregarNodo(30);
+        arbolAVL.agregarNodo(40);
+        arbolAVL.agregarNodo(35);
+        arbolAVL.agregarNodo(25);
+        arbolAVL.agregarNodo(20);
 
-        // Ejemplo de recorrido en orden de los árboles
         System.out.println("Recorrido en orden del árbol simple:");
         arbolSimple.recorrerEnOrden();
 

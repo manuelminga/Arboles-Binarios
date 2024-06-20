@@ -3,7 +3,7 @@ public class NodoRaiz extends Nodo {
 
     public NodoRaiz(int dato) {
         super(dato);
-        this.nodoPadre = null; // La raíz no tiene padre
+        this.nodoPadre = null;
     }
 
     public Nodo getNodoPadre() {

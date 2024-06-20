@@ -3,5 +3,4 @@ public abstract class ListaEnlazada {
 
     public abstract int identificarCuantoNodo();
 
-    // Otros métodos comunes a todas las listas enlazadas
 }
